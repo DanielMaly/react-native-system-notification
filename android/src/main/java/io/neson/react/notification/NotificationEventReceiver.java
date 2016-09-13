@@ -1,18 +1,16 @@
 package io.neson.react.notification;
 
-import android.content.ComponentName;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.SystemClock;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
-import android.content.Intent;
-import android.content.Context;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
-
-import android.util.Log;
 
 /**
  * Handles user's interaction on notifications.
@@ -34,7 +32,7 @@ public class NotificationEventReceiver extends BroadcastReceiver {
         // passed in
         if (!applicationIsRunning(context)) {
             String packageName = context.getApplicationContext().getPackageName();
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+            Intent launchIntent = LauncherIntent.get(context);
 
             launchIntent.putExtra("initialSysNotificationId", extras.getInt(NOTIFICATION_ID));
             launchIntent.putExtra("initialSysNotificationAction", extras.getString(ACTION));
